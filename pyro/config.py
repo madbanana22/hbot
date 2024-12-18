@@ -1,6 +1,6 @@
-import os, json
+import os, json, getpass
 
-cfg: dict
+cfg: dict = {}
 
 def loadCfg():
     global cfg
@@ -13,9 +13,10 @@ def loadCfg():
         makeCfg()
 
 def makeCfg():
-    cfg["apikey"] = input("Enter your API key: ")
-    cfg["cookie"] = input("Enter your cookie: ")
-    
+    global cfg
+    cfg["apikey"] = getpass.getpass("Telegram API key: ")
+    cfg["cookie"] = getpass.getpass("  Journal cookie: ")
+    cfg["path"] =             input("    Link: diary/s/")
     writeCfg()
 
 def writeCfg():
