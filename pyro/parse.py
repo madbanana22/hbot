@@ -1,8 +1,10 @@
-from bs4 import BeautifulSoup
-import requests, config
+import requests, config, bot
 
 def parse():
-    link = "https://dnevnik.kiasuo.ru/diary/s/" + config.cfg["path"] + "/homework"
+    link = "https://dnevnik.kiasuo.ru/diary/api/schedule?id=878921&week=51&year=2024"
+
+    if not ("bearer" in config.cfg.keys()):
+        bot.err("Нет токена Bearer!")
 
     headers = {
         'authority': 'dnevnik.kiasuo.ru',
@@ -15,6 +17,7 @@ def parse():
         'sec-fetch-mode': 'navigate',
         'sec-fetch-user': '?1',
         'accept-language': 'ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3',
+        'authorization': config.cfg["bearer"]
     }
     
     cookies = {"_edu_session": config.cfg["cookie"]}
